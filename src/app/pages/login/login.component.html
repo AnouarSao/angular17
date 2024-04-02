@@ -1,0 +1,25 @@
+<form (ngSubmit)="login()" [formGroup]="myForm">
+  @if(myForm.invalid && submitted){
+    <div>Formulaire invalide</div>
+
+    @if(propEmail.hasError('required')){
+      <div>l'email est obligatoire</div>
+    }
+
+    @if(propEmail.hasError('minlength')){
+      <div></div>
+    }
+
+    @if (propEmail.hasError('domain')) {
+      <div>{{ propEmail.getError('domain') }} est interdit !</div>
+    }
+  }
+
+  <label>Email</label>
+  <input type="text" [formControl]="propEmail">
+
+  <label>Mot de passe</label>
+  <input type="password" [formControl]="propPassword">
+
+  <button>Connexion</button>
+</form>

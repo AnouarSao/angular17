@@ -1,0 +1,18 @@
+<p>user-edit works!</p>
+
+<h1 > {{user.name}} </h1>
+
+<form (ngSubmit)="edit()" [formGroup]="myForm">
+  <label>Name</label>
+  <input type="text" [formControl]="propName">
+
+  <label>Username</label>
+  <input type="text" [formControl]="propUsername">
+
+  <label>Email</label>
+  <input type="text" [formControl]="propEmail">
+
+  <button>Modifier</button>
+</form>
+
+

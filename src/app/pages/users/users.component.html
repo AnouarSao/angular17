@@ -1,0 +1,49 @@
+<h1>{{ 'Utilisateur' | plural:nbSelected }}</h1>
+
+<p>Utilisateur recherché : {{ nameSearch() }}</p>
+
+<select [(ngModel)]="nbSelected">
+    <option>0</option>
+    <option>1</option>
+    <option>2</option>
+</select>
+
+<form (ngSubmit)="createUser(myForm)" #myForm="ngForm">
+  @if(myForm.invalid && myForm.submitted){
+    <div>Formulaire invalide</div>
+    @if(nameEl.hasError('required')){
+      <div>le nom est obligatoire</div>
+    }
+    @if(emailEl.hasError('required')){
+      <div>l'email est obligatoire</div>
+    }
+  }
+  <label>Nom</label>
+  <input type="text" name="name" ngModel #nameEl="ngModel" required>
+
+  <label>Email</label>
+  <input type="text" name="email" ngModel #emailEl="ngModel" required>
+
+  <button [ariaBusy]="loading" [disabled]="loading">
+    {{ loading ? '' : 'Créer utilisateur' }}
+  </button>
+</form>
+
+<select [(ngModel)]="extSelected">
+    <option value="">Tous</option>
+    @for (ext of extensions ; track ext) {
+    <option>{{ ext }}</option>
+    }
+</select>
+
+@for (u of users() | extFilter:extSelected ; track u.id) {
+  <app-user-card [user]="u" (eventDelete)="deleteUser($event)">
+      <h2 entete>Test</h2>
+      <div footer1>
+          Footer1
+      </div>
+      <div footer2>
+           Footer 2
+      </div>
+  </app-user-card>
+  }
